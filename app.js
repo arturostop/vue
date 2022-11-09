@@ -1,30 +1,26 @@
 const app = Vue.createApp({
     data() {
         return {
+            url: 'http://arturostop.github.io',
             showBooks: true,
-            title: 'The final empire',
-            author: 'Brandon Sanderson',
-            age: 54,
-            x: 0,
-            y: 0
+            books: [
+                {title: 'the subtle art of not giving a f*ck', author: 'Mark Manson', img: 'assets/1.png', isFav: true},
+                {title: 'everything is f*cked', author: 'Mark Manson', img: 'assets/2.png', isFav: false},
+                {title: 'el hombre duplicado', author: 'Jose Saramago', img: 'assets/3.jpg', isFav: true}
+            ]
         }
     },
     methods: {
         toggleShowBooks() {
             this.showBooks = !this.showBooks
         },
-         changeTitle(title) {
-            this.title = title
-        },
-        handleEvent(e, data) {
-            console.log(e, e.type)
-            if (data) {
-                console.log(data)
-            }
-        },
-        handleMousemove(e) {
-            this.x = e.offsetX
-            this.y = e.offsetY
+        toggleIsFav(book) {
+            book.isFav = !book.isFav
+        }
+    },
+    computed: {
+        filteredBooks() {
+            return this.books.filter((book) => book.isFav)
         }
     }
 })

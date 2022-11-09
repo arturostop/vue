@@ -7,22 +7,52 @@
     <title>Learning VUE</title>
 
     <style>
-        .box {
-          padding: 100px 0;
-          width: 400px;
-          text-align: center;
-          background: #ddd;
-          margin: 20px;
-          display: inline-block;
+        body{
+            background: #eee;
+            max-width: 960px;
+            margin: 20px auto;
         }
-      </style>
+        p, h3, ul{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style-type: none;
+            background: #fff;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        li.fav {
+            background: #ff9ed2;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <H1>Hello Vue :D</H1>
 
     <div id="app">
+        <!-- attribute binding -->
+        <!-- <a :href="url" target="_blank">Personal website</a> -->
+
         <div v-if="showBooks">
-            <p>{{ title }} - {{ author }} - {{ age }}</p>
+            <ul>
+        <!--Showing books manually
+            <p>{{ books[0].title }} - {{ books[0].author }}</p>
+            <p>{{ books[1].title }} - {{ books[1].author }}</p>
+            <p>{{ books[2].title }} - {{ books[2].author }}</p> -->
+
+            <!-- showing books dinamically -->
+                <li v-for="book in filteredBooks" v-bind:class="{ fav: book.isFav }" @click="toggleIsFav(book)">
+                    <img :src="book.img" :alt="book.title">
+                    <h3>{{ book.title }}</h3>
+                    <p>{{ book.author }}</p>
+                 </li>
+            </ul>
         </div>
 
         <button @click="toggleShowBooks">
@@ -32,19 +62,6 @@
         </button>
 
         <div v-show="showBooks">Currentrly showing books</div>
-
-        <button v-on:click="age++">Increase age</button>
-        <button v-on:click="age--">Decrease age</button>
-        <div @click="changeTitle('Oathbringer')">Change book title</div>
-    
-
-        <br>
-            <!-- Mouse events -->
-        <div class="box" @mouseover="handleEvent($event, 9)">mouseover (enter)</div>
-        <div class="box" @mouseleave="handleEvent">moseleave</div>
-        <div class="box" @dblclick="handleEvent">double click</div>
-        <div class="box" @mousemove="handleMousemove">position - {{ x }} {{ y }}</div>
-
     </div>
 
     <script src="app.js"></script>
